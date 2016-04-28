@@ -164,30 +164,32 @@ function loadTags(){
     var uri = 'https://api.eet.nu/tags';
     $.getJSON(uri, function(json){
         $('#menu .tags').html('');
+
         json.results.forEach(function(tag){
+
             if(tag.context === 'Kitchen'){
                 var isChecked = '';
                 if(selectedTags.indexOf(tag.name) >= 0){
                     isChecked = 'checked="checked"';
                 }
 
-                $('#menu #tags').append('<input type="checkbox" name="' + tag.name + '" id="' + tag.name + '" ' + isChecked + '><label for="' + tag.name + '">' + tag.name + '</label>');
+                $('#menu #tags').append('<input type="checkbox" name="' + tag.name + '" id="' + tag.id + '" ' + isChecked + '><label for="' + tag.id + '">' + tag.name + '</label>');
             }
-            if(tag.context === 'Diets'){
+            else if(tag.context === 'Diets'){
                 var isChecked = '';
                 if(selectedTags.indexOf(tag.name) >= 0){
                     isChecked = 'checked="checked"';
                 }
 
-                $('#menu #diets').append('<input type="checkbox" name="' + tag.name + '" id="' + tag.name + '" ' + isChecked + '><label for="' + tag.name + '">' + tag.name + '</label>');
+                $('#menu #diets').append('<input type="checkbox" name="' + tag.name + '" id="' + tag.id + '" ' + isChecked + '><label for="' + tag.id + '">' + tag.name + '</label>');
             }
-            if(tag.context === 'Accesibility'){
+            else if(tag.context === 'Accesibility'){
                 var isChecked = '';
                 if(selectedTags.indexOf(tag.name) >= 0){
                     isChecked = 'checked="checked"';
                 }
 
-                $('#menu #accesibility').append('<input type="checkbox" name="' + tag.name + '" id="' + tag.name + '" ' + isChecked + '><label for="' + tag.name + '">' + tag.name + '</label>');
+                $('#menu #accesibility').append('<input type="checkbox" name="' + tag.name + '" id="' + tag.id + '" ' + isChecked + '><label for="' + tag.id + '">' + tag.name + '</label>');
             }
         });
 
