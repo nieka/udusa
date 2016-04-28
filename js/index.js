@@ -120,6 +120,7 @@ function save() {
     if(refreshRestaurants === true){
         loadVenues();
     }
+    $('.error').fadeIn(400).delay(3000).fadeOut(400); //fade out after 3 seconds
 }
 
 function updateTagsSettings(){
@@ -217,7 +218,7 @@ function loadVenues(){
     }
 
     var list = $('#restaurantlist');
-    list.html('');
+    list.empty();
 
     var filterOnRating = window.localStorage.getItem('filterOnRating') == 'True';
 
