@@ -332,47 +332,53 @@ function showDetails(json, slide_direction) {
 }
 
 function showOpeningHours(openingHours){
-    for (var i = 0; i < 7; i++) {
-        $('#day_' + i).text("");
-        var iconSpan = $('#day_' + i).parent().find('.ui-btn-icon-notext');
-        iconSpan.removeClass('ui-icon-checked');
-        iconSpan.removeClass('ui-icon-delete');
-    }
-    
-    $.each(openingHours, function(k, v) { // k = key, v = value.
-        var iconSpan = $('#day_' + v.day).parent().find('.ui-btn-icon-notext');
-
-        if(v.closed == true) {
-            $('#day_' + v.day).text("Closed");
-            iconSpan.addClass('ui-icon-delete');
-        } else {
-            var start = "", end = "";
-            if(v.lunch_from == null) { start = v.dinner_from; } else { start = v.lunch_from; }
-            if(v.dinner_till == null){ end = v.lunch_till;    } else { end = v.dinner_till;  }
-            if(start == null) { start = "?"  }
-            if(end == null)   { end = "?"    }
-            
-            $('#day_' + v.day).text(start + " - " + end);
-
-            var now = new Date();
-            
-            var openFrom = new Date()
-            openFrom.setHours(start.substring(0,start.indexOf(':')));
-            openFrom.setMinutes(start.substring(start.indexOf(':') + 1, start.indexOf(':') + 3));
-            
-            var closedFrom = new Date();
-            closedFrom.setHours(end.substring(0,end.indexOf(':')));
-            closedFrom.setMinutes(end.substring(end.indexOf(':') + 1, end.indexOf(':') + 3));
-
-            if((now.getDay() == 0 && v.day != 7) // Zondag
-                || now.getDay() - 1 != v.day
-                || (start != '?' && now < openFrom)
-               || (end != '?' && now > closedFrom)) { 
-                iconSpan.addClass('ui-icon-delete'); 
-            }
-            else { 
-                iconSpan.addClass('ui-icon-check'); 
-            }
+    if(openingHours.length){
+        for (var i = 0; i < 7; i++) {
+            $('#day_' + i).text("");
+            var iconSpan = $('#day_' + i).parent().find('.ui-btn-icon-notext');
+            iconSpan.removeClass('ui-icon-checked');
+            iconSpan.removeClass('ui-icon-delete');
         }
-    });
+
+        $.each(openingHours, function(k, v) { // k = key, v = value.
+            var iconSpan = $('#day_' + v.day).parent().find('.ui-btn-icon-notext');
+
+            if(v.closed == true) {
+                $('#day_' + v.day).text("Closed");
+                iconSpan.addClass('ui-icon-delete');
+            } else {
+                var start = "", end = "";
+                if(v.lunch_from == null) { start = v.dinner_from; } else { start = v.lunch_from; }
+                if(v.dinner_till == null){ end = v.lunch_till;    } else { end = v.dinner_till;  }
+                if(start == null) { start = "?"  }
+                if(end == null)   { end = "?"    }
+
+                $('#day_' + v.day).text(start + " - " + end);
+
+                var now = new Date();
+
+                var openFrom = new Date()
+                openFrom.setHours(start.substring(0,start.indexOf(':')));
+                openFrom.setMinutes(start.substring(start.indexOf(':') + 1, start.indexOf(':') + 3));
+
+                var closedFrom = new Date();
+                closedFrom.setHours(end.substring(0,end.indexOf(':')));
+                closedFrom.setMinutes(end.substring(end.indexOf(':') + 1, end.indexOf(':') + 3));
+
+                if((now.getDay() == 0 && v.day != 7) // Zondag
+                    || now.getDay() - 1 != v.day
+                    || (start != '?' && now < openFrom)
+                    || (end != '?' && now > closedFrom)) {
+                    iconSpan.addClass('ui-icon-delete');
+                }
+                else {
+                    iconSpan.addClass('ui-icon-check');
+                }
+            }
+        });
+    } else {
+        //Geen openingstijden beschikbaar
+        $('#openingTijden').hide();
+        $("#opentime").append("Geen openingstijden beschikbaar")
+    }
 }
