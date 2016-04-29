@@ -166,10 +166,14 @@ function loadTags(){
     $.getJSON(uri, function(json){
         $('#menu .tags').html('');
 
+        $('#menu #tags').append('<strong>Categorieën</strong>');
+        $('#menu #diets').append('<strong>Dieet</strong>');
+        $('#menu #accesibility').append('<strong>Toegankelijkheid</strong>');
+
         json.results.forEach(function(tag){
 
             if(tag.id.indexOf('depricated') == -1){
-                if(tag.context === 'Kitchen'){
+                if(tag.context == 'Kitchen'){
                     var isChecked = '';
                     if(selectedTags.indexOf(tag.name) >= 0){
                         isChecked = 'checked="checked"';
