@@ -15,7 +15,7 @@ $(document).ready(function(){
     $('#btnNextDetails').on('tap', loadNextDetails);
     $('#btnSearch').on('tap', loadVenues);
 
-    $('#menu .tags').on('click', '.ui-checkbox', updateTagsSettings);
+    $('#menu .tags').on('tap', '.ui-checkbox', updateTagsSettings);
 
     $('#restaurantlist').on('tap', 'a', function(el){
         var rel = $(this).data('rel');
@@ -383,6 +383,7 @@ function showOpeningHours(openingHours){
     } else {
         //Geen openingstijden beschikbaar
         $('#openingTijden').hide();
-        $("#opentime").append("Geen openingstijden beschikbaar")
+        $("#geenOpeningstijden").empty();
+        $("#geenOpeningstijden").append("Geen openingstijden beschikbaar")
     }
 }

@@ -18,7 +18,7 @@
 
 #save { float: right;}
 
-#images img { max-height: 300px; min-height: 100px; }
+#images img { max-height: 300px;}
 #images { text-align: center; min-height: 100px; }
 
 #ratings { margin-bottom: 1em; }
